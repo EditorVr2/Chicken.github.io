@@ -11,7 +11,7 @@
         padding: 0;
         height: 100%;
         overflow: hidden;
-        background-color: white;
+        
     }
     
     .container {
@@ -24,7 +24,7 @@
     
     .content {
         text-align: center;
-        color: black;
+        color: white;
         padding: 20px;
         font-family: Arial, sans-serif;
     }
@@ -116,7 +116,7 @@
         width: 100%;
         height: 100%;
         z-index: -1;
-        background-color: black;
+        background-color: white;
     }
     
     .youtube-logo {
@@ -124,7 +124,7 @@
     }
     
     .white-image {
-        filter: brightness(0) invert(0);
+        filter: brightness(0) invert(1);
     }
 </style>
 <body>
@@ -185,7 +185,7 @@
                 }
             }
             draw() {
-                ctx.fillStyle = '#404040'; // Set particle color to dark gray
+                ctx.fillStyle = '#bdbdbd'; // Set particle color to dark gray
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
