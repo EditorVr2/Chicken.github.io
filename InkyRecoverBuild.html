@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chicken Site</title>
+</head>
+<style>/* Base styles */
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+    
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        position: relative; /* Needed for absolute positioning of pop-up */
+    }
+    
+    .content {
+        text-align: center;
+        color: white;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
+    
+    .popup-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .popup {
+        width: 80%; /* Increase the width */
+        padding: 40px; /* Adjust the padding */
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        display: none;
+    }
+    
+    .button-container {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    
+    .popup-btn {
+        margin-bottom: 10px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: purple;
+        color: white;
+        cursor: pointer;
+        font-family: Arial, sans-serif;
+    }
+    
+    .popup-btn:hover {
+        background-color: #6a1b9a;
+    }
+    
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: transparent;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+    }
+    
+    .popup-title {
+        margin-bottom: 10px;
+        font-size: 24px;
+        font-family: Arial, sans-serif;
+    }
+    
+    .popup-form input {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    
+    .popup-submit-btn {
+        background-color: purple;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    .popup-submit-btn:hover {
+        background-color: #6a1b9a;
+    }
+    
+    /* Particle styles */
+    #particle-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background-color: black;
+    }
+    
+    .youtube-logo {
+        filter: brightness(0) invert(1);
+    }
+    
+    .white-image {
+        filter: brightness(0) invert(1);
+    }
+</style>
+<body>
+    <canvas id="particle-canvas"></canvas>
+    <div class="container">
+        <div class="content">
+            <h1 class="title">Inky recover</h1>
+            <hr>
+            <p>In this website you can say to moo or anyone else who has a role like mod,</p>
+            <p>to regive you the role if you get termed. You just gotta sign in.</p>       
+            <br>
+            <br>
+            <img src="https://i.ibb.co/MkHLd8x/image-12.png" alt="Image" width="400" class="white-image">
+            <br>
+            <button class="popup-btn" id="messageAdminsBtn" style="display: none;">Message Admins</button>
+        </div>
+        <div class="popup-container">
+            <div class="popup" id="popup">
+                <button class="close-btn" id="closeBtn">&times;</button>
+                <h2 class="popup-title" id="popupTitle">Login</h2>
+                <form class="popup-form">
+                    <input type="text" id="username" placeholder="Username">
+                    <input type="password" id="password" placeholder="Password" autocomplete="on">
+                    <input type="text" id="altsName" placeholder="Alts Name">
+                    <button type="button" id="submitBtn" class="popup-submit-btn">Submit</button>
+                </form>
+            </div>            
+        </div>
+        <div class="button-container">
+            <button class="popup-btn" id="loginBtn">Login</button>
+        </div>
+    </div>
+    <script>const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const particles = [];
+        const particleCount = 150;
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 5 + 1;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x + this.size > canvas.width || this.x - this.size < 0) {
+                    this.speedX = -this.speedX;
+                }
+                if (this.y + this.size > canvas.height || this.y - this.size < 0) {
+                    this.speedY = -this.speedY;
+                }
+            }
+            draw() {
+                ctx.fillStyle = '#404040'; // Set particle color to dark gray
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        function init() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+            for (const particle of particles) {
+                particle.update();
+                particle.draw();
+            }
+        }
+        
+        init();
+        animate();
+        </script>
+    <script>document.addEventListener('DOMContentLoaded', function() {
+        var loginBtn = document.getElementById('loginBtn');
+        var messageAdminsBtn = document.getElementById('messageAdminsBtn');
+        var popup = document.getElementById('popup');
+        var closeBtn = document.getElementById('closeBtn');
+        var submitBtn = document.getElementById('submitBtn');
+        var usernameInput = document.getElementById('username');
+        var passwordInput = document.getElementById('password');
+        var altnameInput = document.getElementById('altsName');
+    
+        loginBtn.addEventListener('click', function() {
+            popup.style.display = 'block';
+        });
+    
+        closeBtn.addEventListener('click', function() {
+            popup.style.display = 'none';
+        });
+    
+        submitBtn.addEventListener('click', function() {
+            var username = usernameInput.value;
+            var password = passwordInput.value;
+    
+            if (username === 'Chicken' || 'chicken' && password === 'ChickenIsCoolerThanBalls') {
+                popup.style.display = 'none';
+                messageAdminsBtn.style.display = 'block'; // Show the "Message Admins" button
+    
+                // Add event listener to the "Message Admins" button
+                messageAdminsBtn.addEventListener('click', function() {
+                    sendMessageToAdmins();
+                });
+            } else if (username === 'Moo' || 'moo' && password === 'moomoo123') {
+                popup.style.display = 'none';
+                messageAdminsBtn.style.display = 'block'; // Show the "Message Admins" button
+    
+                // Add event listener to the "Message Admins" button
+                messageAdminsBtn.addEventListener('click', function() {
+                    sendMessageToAdmins();
+                });
+            } else if (username === 'lochlany' || 'Lochlany' && password === 'addmebackrightnow') {
+                popup.style.display = 'none';
+                messageAdminsBtn.style.display = 'block'; // Show the "Message Admins" button
+    
+                // Add event listener to the "Message Admins" button
+                messageAdminsBtn.addEventListener('click', function() {
+                    sendMessageToAdmins();
+                });
+            }else if (username === 't5ster' || 'T5ster' && password === 'chickennugget') {
+                popup.style.display = 'none';
+                messageAdminsBtn.style.display = 'block'; // Show the "Message Admins" button
+    
+                // Add event listener to the "Message Admins" button
+                messageAdminsBtn.addEventListener('click', function() {
+                    sendMessageToAdmins();
+                });
+            }else if (username === 'orable' || 'Orable' && password === 'Red567730_') {
+                popup.style.display = 'none';
+                messageAdminsBtn.style.display = 'block'; // Show the "Message Admins" button
+    
+                // Add event listener to the "Message Admins" button
+                messageAdminsBtn.addEventListener('click', function() {
+                    sendMessageToAdmins();
+                });
+            }else if (username === 'xternos' || 'Xternos' && password === 'xternos123') {
+                popup.style.display = 'none';
+                messageAdminsBtn.style.display = 'block'; // Show the "Message Admins" button
+    
+                // Add event listener to the "Message Admins" button
+                messageAdminsBtn.addEventListener('click', function() {
+                    sendMessageToAdmins();
+                });
+            } else {
+                alert('Invalid username or password. Please try again.');
+            }
+        });
+    
+        function sendMessageToAdmins() {
+            // Create an XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+    
+            // Open a POST request to the Discord webhook URL
+            xhr.open("POST", "https://discord.com/api/webhooks/1224685040265334885/78iIvxJL4dygt7UCBrSMJ4ffMIsV-AgnUPPkGioESleN8hds_iYp9elSDQEtqxqQ0fqi", true);
+    
+            // Set the request header
+            xhr.setRequestHeader("Content-Type", "application/json");
+    
+            // Create the message object
+            var message = {
+                content: username.value+" Has been termed. his alt accounts name is "+altnameInput.value+". please go and add him"
+            };
+    
+            // Convert the message object to JSON format
+            var jsonMessage = JSON.stringify(message);
+    
+            // Send the message
+            xhr.send(jsonMessage);
+        }
+    });
+    </script>
+</body>
+</html>
