@@ -159,13 +159,13 @@
     </div>
     <script>const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
-
+        
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-
+        
         const particles = [];
         const particleCount = 150;
-
+        
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
@@ -185,29 +185,29 @@
                 }
             }
             draw() {
-                ctx.fillStyle = '#636363'; // Set particle color to light gray
+                ctx.fillStyle = '#404040'; // Set particle color to dark gray
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
-
+        
         function init() {
             for (let i = 0; i < particleCount; i++) {
                 particles.push(new Particle());
             }
         }
-
+        
         function animate() {
             requestAnimationFrame(animate);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+        
             for (const particle of particles) {
                 particle.update();
                 particle.draw();
             }
         }
-
+        
         init();
         animate();
         </script>
